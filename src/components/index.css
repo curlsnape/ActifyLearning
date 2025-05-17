@@ -1,0 +1,10 @@
+.calendar-visible::-webkit-calendar-picker-indicator {
+  filter: invert(0.5); /* This darkens the icon */
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+/* Optional: Enhance the appearance when hovering */
+.calendar-visible::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Code, Database, Cpu, Filter, Search, Star, BookOpen, Zap } from "lucide-react";
+import { GradualSpacingText } from "./GradualSpacingText";
 
 // Search Bar Component
 function SearchBar({ value, onChange, onFocus, onBlur, isFocused }) {
@@ -61,18 +62,18 @@ const categories = [
     icon: <Cpu className="h-4 w-4" />,
   },
   {
-    id: "web-dev",
-    name: "Web Development",
-    tagline: "Build modern and beautiful websites",
+    id: "appdev",
+    name: "Application Developer",
+    tagline: "Code today, conquer tomorrow",
     color: "text-emerald-600",
     bgColor: "bg-emerald-600",
     lightBgColor: "bg-emerald-100",
     icon: <Code className="h-4 w-4" />,
   },
   {
-    id: "data",
+    id: "dataanalyst",
     name: "Data Analyst",
-    tagline: "Make data-driven decisions",
+    tagline: "Where numbers meet storytelling",
     color: "text-purple-600",
     bgColor: "bg-purple-600",
     lightBgColor: "bg-purple-100",
@@ -81,76 +82,117 @@ const categories = [
 ];
 
 const allCourses = [
+  // RPA Developer Courses (2 courses)
   {
-    id: "8",
+    id: "1",
     title: "UiPath",
     category: "rpa",
     image: "https://i.pinimg.com/736x/9d/be/b9/9dbeb934c483f4f5234df9f643681df8.jpg",
+    link: "/courseDetails/8", 
     popular: true,
     new: false,
   },
   {
-    id: "9",
-    title: "Automation Anywhere",
+    id: "2",
+    title: "Power Automate",
     category: "rpa",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80",
+    image: "https://i.pinimg.com/736x/d0/32/99/d03299787123e88f2324fe8edfcc25ea.jpg",
+    link: "/courseDetails/9", 
+    popular: false,
+    new: false,
+  },
+
+  // Application Developer Courses (5 courses)
+  {
+    id: "3",
+    title: "React Native Developer",
+    category: "appdev",
+    image: "https://i.pinimg.com/736x/56/ee/5e/56ee5ed8b4954396d11465c77966fd7c.jpg",
+    link: "/courseDetails/11", 
+    popular: true,
+    new: false,
+  },
+  {
+    id: "4",
+    title: "Full Stack Java",
+    category: "appdev",
+    image: "https://i.pinimg.com/736x/ff/53/b9/ff53b9536227d518d5165a5fb44b9a37.jpg",
+    link: "/courseDetails/12",
+    popular: false,
+    new: true,
+  },
+  {
+    id: "5",
+    title: "React Developer",
+    category: "appdev",
+    image: "https://i.pinimg.com/736x/f4/8b/3c/f48b3c6e87b2077be4ccdb38bb017de6.jpg",
+    link: "/courseDetails/13", 
+    popular: false,
+    new: false,
+  },
+  {
+    id: "6",
+    title: "Python FullStack",
+    category: "appdev",
+    image: "https://i.pinimg.com/736x/b7/1c/85/b71c8545c65ebfe61776d98723d7da31.jpg",
+    link: "/courseDetails/14", 
+    popular: false,
+    new: true,
+  },
+  {
+    id: "7",
+    title: "Frontend Developer",
+    category: "appdev",
+    image: "https://i.pinimg.com/736x/e5/49/f7/e549f7a2d2c7727e6c3b0bcb7c948af6.jpg",
+    link: "/courseDetails/15", 
+    popular: true,
+    new: false,
+  },
+
+  // Data Analyst Courses (5 courses)
+  {
+    id: "8",
+    title: "Data Analyst",
+    category: "dataanalyst",
+    image: "https://i.pinimg.com/736x/4f/1d/74/4f1d74484cd8156e90585c60a458df4c.jpg",
+    link: "/courseDetails/1", // Added link
+    popular: false,
+    new: false,
+  },
+  {
+    id: "9",
+    title: "SQL Developer",
+    category: "dataanalyst",
+    image: "https://i.pinimg.com/736x/3d/f7/64/3df76478dd44e57257119ee101e8ccdc.jpg",
+    link: "/courseDetails/3", // Added link
     popular: false,
     new: true,
   },
   {
     id: "10",
-    title: "Blue Prism",
-    category: "rpa",
-    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80",
-    popular: false,
+    title: "Power BI",
+    category: "dataanalyst",
+    image: "https://i.pinimg.com/736x/36/90/0d/36900de65093b2f25aa4cba461dfb756.jpg",
+    link: "/courseDetails/5", // Added link
+    popular: true,
     new: false,
   },
   {
     id: "11",
-    title: "Web Design Basics",
-    category: "web-dev",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80",
-    popular: false,
+    title: "Advance Excel",
+    category: "dataanalyst",
+    image: "https://i.pinimg.com/736x/bb/a8/a8/bba8a8850aa719a91369792cd8c70a2b.jpg",
+    link: "/courseDetails/2", 
+    popular: true,
     new: true,
   },
   {
     id: "12",
-    title: "React JS",
-    category: "web-dev",
-    image: "https://i.pinimg.com/736x/f4/8b/3c/f48b3c6e87b2077be4ccdb38bb017de6.jpg",
-    popular: true,
-    new: false,
-  },
-  {
-    id: "13",
-    title: "Next.js & Tailwind CSS",
-    category: "web-dev",
-    image: "https://i.pinimg.com/736x/ff/53/b9/ff53b9536227d518d5165a5fb44b9a37.jpg",
+    title: "Tableau Developer",
+    category: "dataanalyst",
+    image: "https://i.pinimg.com/736x/6d/a4/c0/6da4c005947541f9e48176ba92bf82f0.jpg",
+    link: "/courseDetails/4", 
     popular: false,
-    new: true,
-  },
-  {
-    id: "14",
-    title: "Data Analysis with Excel",
-    category: "data",
-    image: "https://i.pinimg.com/736x/4f/1d/74/4f1d74484cd8156e90585c60a458df4c.jpg",
-    popular: false,
-    new: false,
-  },
-  {
-    id: "15",
-    title: "SQL for Beginners",
-    category: "data",
-    image: "https://i.pinimg.com/736x/3d/f7/64/3df76478dd44e57257119ee101e8ccdc.jpg",
-    popular: false,
-    new: true,
-  },
-  {
-    id: "16",
-    title: "Power BI",
-    category: "data",
-    image: "https://i.pinimg.com/736x/36/90/0d/36900de65093b2f25aa4cba461dfb756.jpg",
-    popular: true,
     new: false,
   },
 ];
@@ -189,7 +231,9 @@ export default function CourseCatalog() {
     <div className="relative space-y-6 px-4 sm:px-6 md:px-8 lg:px-12 max-w-screen-xl mx-auto py-8">
       {/* Header */}
       <div className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Discover a wide range of courses</h1>
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+          <GradualSpacingText text="Our Courses" />
+        </h1>
         <p className="text-gray-600">
           Designed to help you master in-demand skills and advance your career.
         </p>
@@ -265,49 +309,50 @@ export default function CourseCatalog() {
           {visibleCourses.map((course) => {
             const category = categories.find((cat) => cat.id === course.category);
             return (
-              <motion.div
-                key={course.id}
-                whileHover={{ y: -4 }}
-                className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
-              >
-                <div className="relative aspect-video overflow-hidden">
-                  <img
-                    src={course.image}
-                    alt={course.title}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
-                  <div className="absolute left-2 top-2 flex gap-2">
-                    {course.popular && (
-                      <div className="flex items-center gap-1 rounded-full bg-yellow-500/90 px-2 py-1 text-xs font-medium text-white">
-                        <Star className="h-3 w-3 fill-current" />
-                        <span>Popular</span>
-                      </div>
-                    )}
-                    {course.new && (
-                      <div className="flex items-center gap-1 rounded-full bg-green-500/90 px-2 py-1 text-xs font-medium text-white">
-                        <Zap className="h-3 w-3 fill-current" />
-                        <span>New</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <div className="mb-2 flex items-center gap-2">
-                    <div className={`inline-flex items-center gap-1 rounded-full ${category?.lightBgColor} px-3 py-1 text-xs font-medium ${category?.color}`}>
-                      {category?.icon}
-                      {category?.name}
+              <a href={course.link} key={course.id}> {/* Added link wrapper */}
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
+                >
+                  <div className="relative aspect-video overflow-hidden">
+                    <img
+                      src={course.image}
+                      alt={course.title}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent" />
+                    <div className="absolute left-2 top-2 flex gap-2">
+                      {course.popular && (
+                        <div className="flex items-center gap-1 rounded-full bg-yellow-500/90 px-2 py-1 text-xs font-medium text-white">
+                          <Star className="h-3 w-3 fill-current" />
+                          <span>Popular</span>
+                        </div>
+                      )}
+                      {course.new && (
+                        <div className="flex items-center gap-1 rounded-full bg-green-500/90 px-2 py-1 text-xs font-medium text-white">
+                          <Zap className="h-3 w-3 fill-current" />
+                          <span>New</span>
+                        </div>
+                      )}
                     </div>
                   </div>
-                  <h3 className="mb-2 text-lg font-semibold leading-tight text-gray-900">{course.title}</h3>
-                  <p className="mb-4 text-sm text-gray-500">{category?.tagline}</p>
-                  <div className="mt-auto flex items-center text-sm font-medium text-blue-600 transition-colors group-hover:text-blue-500">
-                    Learn more
-                    <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <div className="flex flex-1 flex-col p-5">
+                    <div className="mb-2 flex items-center gap-2">
+                      <div className={`inline-flex items-center gap-1 rounded-full ${category?.lightBgColor} px-3 py-1 text-xs font-medium ${category?.color}`}>
+                        {category?.icon}
+                        {category?.name}
+                      </div>
+                    </div>
+                    <h3 className="mb-2 text-lg font-semibold leading-tight text-gray-900">{course.title}</h3>
+                    <p className="mb-4 text-sm text-gray-500">{category?.tagline}</p>
+                    <div className="mt-auto flex items-center text-sm font-medium text-blue-600 transition-colors group-hover:text-blue-500">
+                      Learn more
+                      <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              </a>
             );
           })}
         </div>

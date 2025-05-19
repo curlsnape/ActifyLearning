@@ -77,7 +77,7 @@ const Navbar = () => {
             />
           </Link>
         </div>
-        <nav className=" lg:flex justify-center gap-6 items-center syne-font font-semibold text-lg hidden">
+        <nav className=" lg:flex justify-center gap-6 items-center syne-font font-semibold  hidden">
           <NavAnchor title="Home" url="/" />
           <Divider />
           <NavAnchor title="Learning" url="/learning" />

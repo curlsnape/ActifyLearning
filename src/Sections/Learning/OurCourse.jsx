@@ -18,7 +18,7 @@ export default function CourseCarousel() {
       title: "RPA Developer",
       description: "RPA developers create automation solutions to streamline tasks using software robots.",
       sectionId: "rpa",
-      bgImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
+      bgImage: "https://i.pinimg.com/736x/47/4c/f3/474cf3b31e3f2f08863030d1dfa9f4ff.jpg",
       courses: [
         { id: "8", title: "UiPath" },
         { id: "9", title: "Power Automate" },
@@ -29,7 +29,7 @@ export default function CourseCarousel() {
       title: "Application Developer",
       description: "Application developers create and maintain software applications to meet business needs.",
       sectionId: "appdev",
-      bgImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
+      bgImage: "https://i.pinimg.com/736x/41/7c/62/417c6272d5856068eeb52e453681d5b3.jpg",
       courses: [
         { id: "11", title: "React Native" },
         { id: "12", title: "Full Stack Java" },
@@ -82,7 +82,7 @@ export default function CourseCarousel() {
         >
           {/* Parallax layered background */}
           <div
-            className="absolute inset-0 bg-cover bg-center will-change-transform"
+            className="absolute inset-0 bg-contain bg-repeat-none bg-center will-change-transform"
             style={{
               backgroundImage: `url(${carouselItems[currentIndex].bgImage})`,
               backgroundAttachment: "fixed",
@@ -92,7 +92,7 @@ export default function CourseCarousel() {
           />
 
           {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-blue-700/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/40 to-blue-500/30" />
 
           {/* Content */}
           <div className="relative z-10 h-full flex flex-col items-center justify-center px-6 md:px-12 max-w-7xl mx-auto text-center">

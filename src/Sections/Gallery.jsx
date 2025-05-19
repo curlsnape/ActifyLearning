@@ -9,26 +9,32 @@ export default function Gallery() {
     {
       src: "https://www.actifyzone.com/assets/Gallery_1-CAAVxJ73.webp",
       alt: "Students in classroom",
+      description: "Students engaged in classroom learning"
     },
     {
       src: "https://www.actifyzone.com/assets/Gallery_2-tWfIgzc_.webp",
       alt: "Training session",
+      description: "Interactive training session in progress"
     },
     {
       src: "https://www.actifyzone.com/assets/Gallery_3-BLb9ZENp.webp",
       alt: "Students discussing",
+      description: "Group discussion among students"
     },
     {
       src: "https://www.actifyzone.com/assets/Gallery_4-RfC9Bh8c.webp",
       alt: "Presentation",
+      description: "Student delivering a presentation"
     },
     {
       src: "https://www.actifyzone.com/assets/Gallery_5-BwX_j9S7.webp",
       alt: "Group discussion",
+      description: "Collaborative group work session"
     },
     {
       src: "https://www.actifyzone.com/assets/Gallery_6-D1Iv6wnE.webp",
       alt: "Classroom activity",
+      description: "Hands-on classroom activity"
     },
   ];
 
@@ -68,10 +74,15 @@ export default function Gallery() {
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>
-                  <div className="p-3 bg-white rounded-b-xl flex-1 flex items-center">
-                    <p className="text-gray-700 text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
+                  <div className="px-3 py-1 bg-white rounded-b-xl flex-1 flex items-center">
+                    <motion.p
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
+                      className="text-gray-700 text-sm font-medium"
+                    >
+                      {image.description}
+                    </motion.p>
                   </div>
                 </motion.div>
               ))}

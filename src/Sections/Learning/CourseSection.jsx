@@ -339,7 +339,7 @@ export default function CourseCatalog() {
                   </div>
                   <div className="flex flex-1 flex-col p-5">
                     <div className="mb-2 flex items-center gap-2">
-                      <div className={`inline-flex items-center gap-1 rounded-full ${category?.lightBgColor} px-3 py-1 text-xs font-medium ${category?.color}`}>
+                      <div className={`inline-flex items-center gap-1 rounded-full ${category?.lightBgColor} px-5 py-3 text-xs font-medium ${category?.color}`}>
                         {category?.icon}
                         {category?.name}
                       </div>

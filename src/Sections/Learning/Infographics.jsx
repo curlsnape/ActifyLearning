@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Briefcase, Target, FileText, Globe, Link as LinkIcon, Rocket, CheckCircle } from "lucide-react";
+import {
+  Briefcase,
+  Target,
+  FileText,
+  Globe,
+  Link as LinkIcon,
+  Rocket,
+  CheckCircle,
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 const steps = [
@@ -73,27 +81,17 @@ const steps = [
   },
 ];
 
-export default function SuccessPathEnhanced() {
+export default function Infographics() {
   const controls = useAnimation();
-  const [activeStep, setActiveStep] = useState(null);
-  const [ref, inView] = useInView({
-    triggerOnce: false,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useInView({ triggerOnce: false, threshold: 0.1 });
 
   useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
+    if (inView) controls.start("visible");
   }, [controls, inView]);
 
   const containerVariants = {
     hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
+    visible: { transition: { staggerChildren: 0.2 } },
   };
 
   const itemVariants = {
@@ -103,7 +101,7 @@ export default function SuccessPathEnhanced() {
 
   return (
     <section className="py-20 bg-gray-100 text-black">
-      <div className="container mx-auto px-16">
+      <div className="container mx-auto px-6 md:px-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -113,7 +111,6 @@ export default function SuccessPathEnhanced() {
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Here's How Our Course Will Help You Get Your Dream Job
           </h2>
-      
         </motion.div>
 
         <motion.div
@@ -128,9 +125,7 @@ export default function SuccessPathEnhanced() {
             <div className="hidden lg:block absolute left-0 right-0 top-1/2 transform -translate-y-1/2 z-0">
               {steps.map((_, index) => {
                 if (index === steps.length - 1) return null;
-
                 const startX = `${(index * 100) / (steps.length - 1)}%`;
-                const endX = `${((index + 1) * 100) / (steps.length - 1)}%`;
                 const isEven = index % 2 === 0;
                 const nextIsEven = (index + 1) % 2 === 0;
 
@@ -145,14 +140,19 @@ export default function SuccessPathEnhanced() {
                       top: "-100px",
                     }}
                   >
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <svg
+                      width="100%"
+                      height="100%"
+                      viewBox="0 0 100 100"
+                      preserveAspectRatio="none"
+                    >
                       <motion.path
                         d={
                           isEven !== nextIsEven
                             ? "M0,25 C20,25 30,75 50,75 C70,75 80,25 100,25"
                             : isEven
-                              ? "M0,25 L100,25"
-                              : "M0,75 L100,75"
+                            ? "M0,25 L100,25"
+                            : "M0,75 L100,75"
                         }
                         stroke="#4ade80"
                         strokeWidth="2"
@@ -171,50 +171,41 @@ export default function SuccessPathEnhanced() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
               {steps.map((step, index) => {
                 const isEven = index % 2 === 0;
-
                 return (
                   <motion.div
                     key={step.id}
                     variants={itemVariants}
                     className={`relative ${isEven ? "lg:mt-0" : "lg:mt-32"}`}
-                    onMouseEnter={() => setActiveStep(step.id)}
-                    onMouseLeave={() => setActiveStep(null)}
                   >
-                    {/* Step number */}
-                    <div className="absolute -top-9 -right-6 text-5xl font-bold text-gray-800 opacity-40 z-0">
-                      {step.id.toString().padStart(2, "0")}
+                    {/* Circular number indicator */}
+                    <div className="absolute bottom-2 -right-5 z-20">
+                      <div className={`w-12 h-12 rounded-full ${step.color} flex items-center justify-center text-white font-bold text-lg shadow-lg`}>
+                        {step.id}
+                      </div>
                     </div>
-
+                    
+                    {/* Modified card shape with notch */}
                     <motion.div
                       whileHover={{ y: -5 }}
-                      className="bg-white text-gray-800 rounded-lg p-6 shadow-lg relative z-10 h-full"
+                      className="bg-white text-gray-800 rounded-lg p-6 shadow-lg relative z-10 h-full border-t-4 border-r-4 border-gray-200"
+                      style={{
+                        clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)'
+                      }}
                     >
-                      {/* Icon */}
                       <div className="mb-4">
                         <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
                           <div className={step.textColor}>{step.icon}</div>
                         </div>
                       </div>
-
                       <h3 className="text-xl font-bold mb-3">{step.title}</h3>
                       <p className="text-gray-600">{step.description}</p>
-                      <Link 
-                        to={`/step/${step.id}`} 
+                      {/* <Link
+                        to={`/step/${step.id}`}
                         className="mt-4 inline-block text-sm font-medium text-blue-600 hover:text-blue-800"
                       >
                         Learn more →
-                      </Link>
+                      </Link> */}
                     </motion.div>
-
-                    {/* Checkpoint indicator */}
-                    <div className="hidden lg:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-                      {/* <motion.div
-                        whileHover={{ scale: 1.2 }}
-                        className={`w-8 h-8 rounded-full ${step.color} flex items-center justify-center text-white font-bold text-sm`}
-                      >
-                        {step.id}
-                      </motion.div> */}
-                    </div>
                   </motion.div>
                 );
               })}
@@ -225,7 +216,11 @@ export default function SuccessPathEnhanced() {
               variants={itemVariants}
               className="hidden lg:block absolute -bottom-16 right-0 transform translate-y-1/2 z-20"
             >
-              <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} className="relative">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative"
+              >
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -241,45 +236,11 @@ export default function SuccessPathEnhanced() {
                       rotate: [0, 10, -10, 0],
                       scale: [1, 1.1, 1],
                     }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Number.POSITIVE_INFINITY,
-                      repeatType: "mirror",
-                    }}
+                    transition={{ repeat: Infinity, duration: 2 }}
                   >
-                    <CheckCircle className="w-8 h-8 text-white" />
+                    <CheckCircle className="h-8 w-8 text-white" />
                   </motion.div>
                 </motion.div>
-
-                {/* Celebration particles */}
-                <AnimatePresence>
-                  {activeStep === steps.length && (
-                    <>
-                      {[...Array(8)].map((_, i) => (
-                        <motion.div
-                          key={`particle-${i}`}
-                          initial={{
-                            opacity: 0,
-                            x: 0,
-                            y: 0,
-                          }}
-                          animate={{
-                            opacity: [1, 0],
-                            x: Math.cos((i * 45 * Math.PI) / 180) * 30,
-                            y: Math.sin((i * 45 * Math.PI) / 180) * 30,
-                          }}
-                          exit={{ opacity: 0 }}
-                          transition={{
-                            duration: 1.5,
-                            repeat: Number.POSITIVE_INFINITY,
-                            repeatDelay: 0.5,
-                          }}
-                          className="absolute top-0 left-0 w-2 h-2 rounded-full bg-yellow-300"
-                        />
-                      ))}
-                    </>
-                  )}
-                </AnimatePresence>
               </motion.div>
             </motion.div>
           </div>

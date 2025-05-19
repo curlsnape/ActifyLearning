@@ -71,7 +71,7 @@ const StatItem = ({ icon, label, value, suffix = "", delay }) => {
 
 export default function StatsSection() {
   return (
-    <section className="py-20 bg-gradient-to-r from-blue-50 to-cyan-50 relative overflow-hidden">
+    <section className="py-20 bg-white relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>

@@ -48,7 +48,7 @@ const categories = [
     name: "All Courses",
     tagline: "Browse all available courses",
     color: "text-gray-700",
-    bgColor: "bg-gray-700",
+    bgColor: "bg-black",
     lightBgColor: "bg-gray-100",
     icon: <BookOpen className="h-4 w-4" />,
   },
@@ -66,7 +66,7 @@ const categories = [
     name: "Application Developer",
     tagline: "Code today, conquer tomorrow",
     color: "text-emerald-600",
-    bgColor: "bg-emerald-600",
+    bgColor: "bg-red-600",
     lightBgColor: "bg-emerald-100",
     icon: <Code className="h-4 w-4" />,
   },
@@ -228,7 +228,7 @@ export default function CourseCatalog() {
   };
 
   return (
-    <div className="relative space-y-6 px-4 sm:px-6 md:px-8 lg:px-12 max-w-screen-xl mx-auto py-8">
+    <div className="relative bg-zinc-100 space-y-6 px-4 sm:px-6 md:px-8 lg:px-12 max-w-screen-xl mx-auto py-8">
       {/* Header */}
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">

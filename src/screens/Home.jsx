@@ -12,8 +12,11 @@ import WorkWithUs from "../Sections/Home/WorkWithUs";
 import ScrollCarousel from "../components/ScrollCarousel";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
+// import LocomotiveScroll from "locomotive-scroll";
+
 
 function App() {
+    // const locomotiveScroll = new LocomotiveScroll();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

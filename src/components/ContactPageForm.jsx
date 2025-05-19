@@ -4,19 +4,22 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-import "./index.css";
 import { useNavigate } from "react-router-dom";
 import { CgSpinner } from "react-icons/cg";
 
 const formSchema = z.object({
   first_name: z.string().min(2, "First name must be at least 2 characters"),
-  last_name: z.string(),
+  last_name: z.string().optional(),
   email: z.string().email("Please enter a valid email address"),
-  phone_number: z.string().min(10, "Phone number must be at least 10 digits"),
-  remark: z.string(),
-  accountname: z.string(),
-  date: z.string(),
-  time: z.string(),
+  phone_number: z
+    .string()
+    .min(10, "Phone number must be at least 10 digits")
+    .max(15, "Phone number must not exceed 15 digits")
+    .regex(/^\d+$/, "Phone number must contain digits only"),
+  remark: z.string().min(1, "Remark is required"),
+  accountname: z.string().optional(),
+  date: z.string().min(1, "Date is required"),
+  time: z.string().min(1, "Time is required"),
 });
 
 export const BASE_URL = "https://crm2.actifyzone.com/crm-uat";
@@ -44,6 +47,7 @@ const ContactPageForm = () => {
       time: "",
     },
   });
+
   async function onSubmit(values) {
     const formattedDate = new Date(values.date).toLocaleDateString("en-GB");
 
@@ -55,38 +59,38 @@ const ContactPageForm = () => {
           ? "Actify Business"
           : "Actify Learning",
       remark: {
-        ...(typeof values.remark === "string"
-          ? { msg: values.remark }
-          : { msg: values.remark?.join("") || "" }),
-
+        msg: values.remark,
         enquiry_type: selectedOption,
       },
       source: source,
     };
+
     try {
       const response = await axios.post(
         BASE_URL + "/Crm/Portal/User/websitecontacts",
         data
       );
-      if (response.data.message == "Email Already Exist") {
+      if (response.data.message === "Email Already Exist") {
         toast.error(response.data.message);
       } else {
         reset();
         toast.success("Thank you for sharing the details");
         setTimeout(() => {
-          // Fixed the navigation condition - it had the same issue as before
           if (selectedOption === "Bussiness Owner") {
-            navigate("/business"); // This should be /business based on your condition
+            navigate("/business");
           } else if (selectedOption === "student") {
             navigate("/learning");
           } else {
             navigate("/careers");
           }
-        }, 2000); // 2 second delay
+        }, 2000);
       }
     } catch (error) {
-      if (axios.isAxiosError(error)) throw error.response?.data;
-      else throw "Something went wrong";
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message || "Submission failed");
+      } else {
+        toast.error("Something went wrong");
+      }
     }
   }
 
@@ -95,75 +99,87 @@ const ContactPageForm = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-[80%] mx-auto">
+    <div className="flex flex-col justify-center items-center w-[80%] mx-auto overflow-x-hidden">
       <Toaster />
       <div>
         <p className="text-black text-4xl sm:text-6xl md:text-6xl font-bold text-center mb-3">
           Let's Connect
         </p>
         <p className="text-black text-xl text-center">
-          Fill below form, and we’ll give you a call.
+          Fill below form, and we'll give you a call.
         </p>
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="text-xl mt-8 w-full md:w-[50%] text-black grid grid-cols-2 gap-4"
+        className="text-base sm:text-xl mt-8 w-full md:w-[50%] text-black grid grid-cols-1 sm:grid-cols-2 gap-4"
       >
+        {/* Name */}
         <div className="flex flex-col col-span-2 sm:col-span-1">
-          <label
-            className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            htmlFor=""
-          >
+          <label className="after:ml-0.5 after:text-red-500 after:content-['*']">
             Your Name
           </label>
           <input
-            {...register("first_name", { required: true })}
-            className="bg-white text-black border rounded-md border-gray-200 py-2 pl-2 "
+            {...register("first_name")}
+            className="bg-white text-black border rounded-md border-gray-200 py-3 pl-3
+              text-sm sm:text-base
+              w-full
+              box-border
+              "
             type="text"
             placeholder="Enter name"
           />
         </div>
+
+        {/* Email */}
         <div className="flex flex-col col-span-2 sm:col-span-1">
-          <label
-            className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            htmlFor=""
-          >
+          <label className="after:ml-0.5 after:text-red-500 after:content-['*']">
             Email Address
           </label>
           <input
-            {...register("email", { required: true })}
-            className="bg-white text-black border rounded-md border-gray-200 py-2 pl-2"
+            {...register("email")}
+            className="bg-white text-black border rounded-md border-gray-200 py-3 pl-3
+              text-sm sm:text-base
+              w-full
+              box-border
+              "
             type="email"
             placeholder="Enter email"
           />
         </div>
+
+        
         <div className="flex flex-col col-span-2 sm:col-span-1">
-          <label
-            className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            htmlFor=""
-          >
-            Mobile Number
+          <label className="after:ml-0.5 after:text-red-500 after:content-['*']">
+            Mobile No.
           </label>
           <input
-            email
-            {...register("phone_number", { required: true })}
-            className="bg-white text-black border rounded-md border-gray-200 py-2 pl-2"
-            type="number"
+            {...register("phone_number")}
+            className="bg-white text-black border rounded-md border-gray-200 py-3 pl-3
+              text-sm sm:text-base 
+              w-full
+              box-border
+              "
+            type="tel"
             placeholder="Enter phone number"
           />
         </div>
-        <div className="flex flex-col col-span-2 sm:col-span-1">
-          <label
-            className="after:ml-0.5 after:text-red-500 after:content-['*']"
-            htmlFor=""
-          >
-            Iam a
+
+        
+        <div className="flex flex-col col-span-2 sm:col-span-1 relative">
+          <label className="after:ml-0.5 after:text-red-500 after:content-['*']">
+            I am a
           </label>
           <select
             id="dropdown"
             value={selectedOption}
             onChange={handleChange}
-            className="bg-white text-black border  rounded-md border-gray-200 py-2 pl-2"
+            className="bg-white text-black border rounded-md border-gray-200 py-3 px-3
+              text-sm sm:text-base
+              w-full
+              box-border
+              cursor-pointer
+              appearance-none
+              "
           >
             <option value="" disabled>
               Select an option
@@ -172,58 +188,83 @@ const ContactPageForm = () => {
             <option value="Job seeker">Job seeker</option>
             <option value="Bussiness Owner">Bussiness Owner</option>
           </select>
-        </div>
-        {selectedOption === "Bussiness Owner" ? (
-          <div className="flex flex-col col-span-2 sm:col-span-2">
-            <label
-              className="after:ml-0.5 after:text-red-500 after:content-['*']"
-              htmlFor=""
+          {/* Custom dropdown arrow */}
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 pt-6">
+            <svg
+              className="h-5 w-5 text-gray-400"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
             >
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* Company Name if Business Owner */}
+        {selectedOption === "Bussiness Owner" && (
+          <div className="flex flex-col col-span-2">
+            <label className="after:ml-0.5 after:text-red-500 after:content-['*']">
               Company Name
             </label>
             <input
               {...register("accountname")}
-              className="bg-white text-black border rounded-md border-gray-200 py-2 pl-2 calendar-visible"
+              className="bg-white text-black border rounded-md border-gray-200 py-3 pl-3
+                text-sm sm:text-base
+                w-full
+                box-border
+                "
               type="text"
               placeholder="Enter Company name"
             />
           </div>
-        ) : null}
+        )}
 
+        {/* Date */}
         <div className="flex flex-col col-span-2 sm:col-span-1">
-          <label className="" htmlFor="">
-            Date
-          </label>
+          <label className="after:ml-0.5 after:text-red-500 after:content-['*']">Date</label>
           <input
-            {...register("date", {
-              required: true,
-            })}
-            className="bg-white text-black border rounded-md border-gray-200 py-2 pl-2"
+            {...register("date")}
+            className="bg-white text-black border rounded-md border-gray-200 py-3 pl-3
+              text-sm sm:text-base
+              w-full
+              box-border
+              "
             type="date"
-            placeholder="Enter date"
-            // The following helps with formatting display
           />
         </div>
+
+        {/* Time */}
         <div className="flex flex-col col-span-2 sm:col-span-1">
-          <label className="" htmlFor="">
-            Time
-          </label>
+          <label className="after:ml-0.5 after:text-red-500 after:content-['*']">Time</label>
           <input
-            {...register("time", { required: true })}
-            className="bg-white text-black border rounded-md border-gray-200 py-2 pl-2"
+            {...register("time")}
+            className="bg-white text-black border rounded-md border-gray-200 py-3 pl-3
+              text-sm sm:text-base
+              w-full
+              box-border
+              "
             type="time"
-            placeholder="Enter email"
           />
         </div>
-        <div className="flex flex-col col-span-2 sm:col-span-2">
-          <label className="" htmlFor="">
-            Source
-          </label>
+
+        {/* Source dropdown */}
+        <div className="flex flex-col col-span-2">
+          <label>Source</label>
           <select
-            id="dropdown"
+            id="source"
             value={source}
             onChange={(e) => setSource(e.target.value)}
-            className="bg-white text-black border  rounded-md border-gray-200 py-2 pl-2"
+            className="bg-white text-black border rounded-md border-gray-200 py-3 px-3
+              text-sm sm:text-base
+              w-full
+              box-border
+              cursor-pointer
+              "
           >
             <option value="" disabled>
               Select an option
@@ -232,26 +273,33 @@ const ContactPageForm = () => {
             <option value="Pamphlet in Newspaper">Pamphlet in Newspaper</option>
           </select>
         </div>
+
+        {/* Message */}
         <div className="flex flex-col col-span-2">
-          <label className="" htmlFor="">
-            Your Message
-          </label>
+          <label>Your Message</label>
           <textarea
-            {...register("remark", { required: true })}
-            className="bg-white text-black border  rounded-md border-gray-200 py-2 pl-2 pb-16"
-            type="text"
+            {...register("remark")}
+            className="bg-white text-black border rounded-md border-gray-200 py-3 pl-3 pb-16
+              text-sm sm:text-base
+              w-full
+              box-border
+              resize-none
+              "
             placeholder="Ask about your requirement"
           />
         </div>
-        <button className="w-full md:w-auto mt-4 py-2 px-8 bg-black rounded-md text-white text-center transition-colors hover:bg-gray-800">
-          {isSubmitting ? (
-            <span className="flex items-center justify-center gap-2">
-              Submitting <CgSpinner className="animate-spin" />
-            </span>
-          ) : (
-            "Submit"
-          )}
-        </button>
+
+        {/* Submit */}
+        <div className="col-span-2">
+          <button
+            type="submit"
+            className="w-full bg-[#4265FF] text-white font-semibold py-3 px-4 rounded-md flex justify-center items-center gap-2"
+            disabled={isSubmitting}
+          >
+            {isSubmitting && <CgSpinner className="animate-spin text-2xl" />}
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );

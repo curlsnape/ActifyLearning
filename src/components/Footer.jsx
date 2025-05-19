@@ -111,7 +111,7 @@ const Footer = () => {
   );
 
   return (
-    <footer className="bg-gradient-to-b from-blue-900 to-blue-950">
+    <footer className="bg-gradient-to-b shadow-xl shadow-bg-blue-200 from-blue-900 to-blue-950">
       <div className="container px-6 py-12 mx-auto">
         {/* CTA Section */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 bg-blue-800/30 backdrop-blur-sm p-8 rounded-xl border border-blue-700/30">

@@ -15,7 +15,7 @@ const Learning = () => {
   }, [location]);
 
   return (
-    <div className="pt-24 bg-white pb-10">
+    <div className="pt-24 bg-zinc-100 pb-10">
       <OurCourse />
       <Infographics />
       <WhyChooseUs />

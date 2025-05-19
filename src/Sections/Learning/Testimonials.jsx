@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { GradualSpacingText } from "./GradualSpacingText";
 
 export default function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -72,21 +73,22 @@ export default function TestimonialsSection() {
 
   return (
     <section className="py-16 bg-gradient-to-r from-blue-50 to-cyan-50">
-         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="mt-16 mb-16 text-center"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 inline-block relative">
-            Hear what our learners say about us
-          </h2>
-        </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.6 }}
+        viewport={{ once: true }}
+        className="mt-16 mb-16 text-center"
+      >
+        <div className="w-full flex justify-center mb-10 text-black">
+          {" "}
+          <GradualSpacingText text="Hear what our learners say about us" />
+        </div>
+      </motion.div>
       <div className="container mx-auto px-4">
         <div className="relative max-w-lg mx-auto" style={{ height: "384px" }}>
-          <AnimatePresence 
-            initial={false} 
+          <AnimatePresence
+            initial={false}
             custom={direction}
             onExitComplete={() => setIsAnimating(false)}
           >
@@ -97,11 +99,11 @@ export default function TestimonialsSection() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ 
-                type: "spring", 
-                stiffness: 300, 
+              transition={{
+                type: "spring",
+                stiffness: 300,
                 damping: 30,
-                duration: 0.5
+                duration: 0.5,
               }}
               className="flex justify-center items-center w-full h-full bg-white rounded-lg shadow-lg p-4"
             >

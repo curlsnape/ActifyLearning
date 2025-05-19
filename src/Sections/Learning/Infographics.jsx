@@ -181,7 +181,7 @@ export default function SuccessPathEnhanced() {
                     onMouseLeave={() => setActiveStep(null)}
                   >
                     {/* Step number */}
-                    <div className="absolute -top-6 -right-6 text-5xl font-bold text-gray-800 opacity-20 z-0">
+                    <div className="absolute -top-9 -right-6 text-5xl font-bold text-gray-800 opacity-40 z-0">
                       {step.id.toString().padStart(2, "0")}
                     </div>
 
@@ -208,12 +208,12 @@ export default function SuccessPathEnhanced() {
 
                     {/* Checkpoint indicator */}
                     <div className="hidden lg:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-                      <motion.div
+                      {/* <motion.div
                         whileHover={{ scale: 1.2 }}
                         className={`w-8 h-8 rounded-full ${step.color} flex items-center justify-center text-white font-bold text-sm`}
                       >
                         {step.id}
-                      </motion.div>
+                      </motion.div> */}
                     </div>
                   </motion.div>
                 );
@@ -234,7 +234,7 @@ export default function SuccessPathEnhanced() {
                     stiffness: 260,
                     damping: 20,
                   }}
-                  className="w-16 h-16 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center shadow-lg"
+                  className="w-16 h-16 rounded-full bg-gradient-to-r from-[#1f3baa] to-[#152d8d] flex items-center justify-center shadow-lg"
                 >
                   <motion.div
                     animate={{

@@ -4,6 +4,7 @@ import { useEffect } from "react"
 import { motion, useAnimation } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import { Briefcase, Users, UserCheck, BookOpen, Laptop } from "lucide-react"
+import { GradualSpacingText } from "./GradualSpacingText"
 
 // Features Data
 const features = [
@@ -68,14 +69,8 @@ export default function WhyChooseUs() {
   return (
     <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-4xl text-black md:text-5xl font-bold text-center mb-16"
-        >
-          Why Choose Us?
-        </motion.h2>
+        <div className="w-full flex justify-center mb-10 text-black"> <GradualSpacingText text="Why Choose Us?" /></div>
+  
 
         <motion.div
           ref={ref}

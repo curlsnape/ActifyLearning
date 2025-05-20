@@ -86,7 +86,7 @@ export default function TestimonialsSection() {
         </div>
       </motion.div>
       <div className="container mx-auto px-4">
-        <div className="relative max-w-lg mx-auto" style={{ height: "384px" }}>
+        <div className="relative max-w-xl mx-auto" style={{ height: "580px" }}>
           <AnimatePresence
             initial={false}
             custom={direction}
@@ -110,7 +110,7 @@ export default function TestimonialsSection() {
               <img
                 src={testimonialImages[currentIndex].img}
                 alt={testimonialImages[currentIndex].alt}
-                className="h-96 object-contain"
+                className="h-[80vh] object-contain"
               />
             </motion.div>
           </AnimatePresence>
@@ -118,7 +118,7 @@ export default function TestimonialsSection() {
           {/* Navigation buttons */}
           <button
             onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg text-blue-600 hover:text-blue-800 transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="absolute shadow-blue-200 left-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg text-blue-600 hover:text-blue-800 transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
             aria-label="Previous testimonial"
             disabled={isAnimating}
           >
@@ -127,7 +127,7 @@ export default function TestimonialsSection() {
 
           <button
             onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg text-blue-600 hover:text-blue-800 transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="absolute right-4 shadow-blue-200 top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg text-blue-600 hover:text-blue-800 transition-colors z-10 focus:outline-none focus:ring-2 focus:ring-blue-500"
             aria-label="Next testimonial"
             disabled={isAnimating}
           >

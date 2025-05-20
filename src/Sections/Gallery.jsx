@@ -78,7 +78,7 @@ export default function Gallery() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
-                    className="text-gray-700 text-sm font-medium"
+                    className="text-gray-700 text-base font-semibold"
                   >
                     {image.description}
                   </motion.p>
